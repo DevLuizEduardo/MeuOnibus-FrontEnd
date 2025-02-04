@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:meu_onibus_app/API/Request_Detalhe.dart';
 import 'package:meu_onibus_app/Models/Detalhe.dart';
@@ -65,15 +63,20 @@ class _DetalheOnibusState extends State<DetalheOnibus> {
         child: Column(
           children: [
             SizedBox(height: 20),
-            CircleAvatar(
-              radius: 60,
-              backgroundColor: Colors.grey,
-              // backgroundImage: NetworkImage('https://www.exemplo.com/sua-foto.jpg'),
-              child: Icon(Icons.person, size: 50, color: Colors.white),
-            ),
+            if (detalhe?.urlFoto != null)
+              CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.grey,
+                  backgroundImage: NetworkImage(detalhe!.urlFoto))
+            else
+              CircleAvatar(
+                radius: 60,
+                backgroundColor: Colors.grey,
+                child: Icon(Icons.person, size: 50, color: Colors.white),
+              ),
             SizedBox(height: 20),
             Text(
-              "Nome do Usuário",
+              detalhe != null ? detalhe!.motoristaNome : 'Carregando...',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(
@@ -158,8 +161,7 @@ class _DetalheOnibusState extends State<DetalheOnibus> {
                                     ],
                                   ),
                                   title: Text(
-                                    utf8.decode(detalhe!
-                                        .paradas[index].endereco.codeUnits),
+                                    detalhe!.paradas[index].endereco,
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),

@@ -22,7 +22,8 @@ class Request_Parada {
       };
       final response = await http.get(url, headers: headers);
       if (response.statusCode == 200) {
-        descricao = DescricaoParada.fromJson(convert.jsonDecode(response.body));
+        descricao = DescricaoParada.fromJson(
+            convert.jsonDecode(convert.utf8.decode(response.bodyBytes)));
 
         // print(descricao.descricao);
 

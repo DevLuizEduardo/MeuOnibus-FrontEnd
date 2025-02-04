@@ -22,7 +22,8 @@ class Request_Detalhe {
 
       final response = await http.get(url, headers: headers);
       if (response.statusCode == 200) {
-        detalhe = Detalhe.fromJson(convert.jsonDecode(response.body));
+        detalhe = Detalhe.fromJson(
+            convert.jsonDecode(convert.utf8.decode(response.bodyBytes)));
         return detalhe;
       } else {
         throw Exception('Falha na requisição: ${response.statusCode}');

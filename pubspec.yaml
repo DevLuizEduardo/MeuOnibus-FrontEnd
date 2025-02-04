@@ -81,6 +81,8 @@ flutter:
     - assets/icons/icon_parada.png
     - assets/icons/icon_localizacao.png
     - assets/images/no-image.jpg
+    - assets/icons/icon_mensage.png
+    - assets/icons/icon_mensage_lido.png
     
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

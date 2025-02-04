@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meu_onibus_app/AvisoProvider.dart';
 import 'package:meu_onibus_app/Models/Usuario.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:meu_onibus_app/API/Request_Auth.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -44,18 +46,12 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
                       Container(
                         width: 200,
                         child: Hero(
                           tag: 'logo',
                           child: Image.asset('assets/images/bus.png'),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
                       ),
                       TextFormField(
                         controller: _emailController,
@@ -160,6 +156,10 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   backgroundColor: Colors.redAccent,
                                 ));
+                              } else {
+                                Provider.of<AvisoProvider>(context,
+                                        listen: false)
+                                    .carregarAvisos(context);
                               }
                             }
                           },

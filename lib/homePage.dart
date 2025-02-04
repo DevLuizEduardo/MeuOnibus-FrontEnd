@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:meu_onibus_app/API/Request_Onibus.dart';
 import 'package:meu_onibus_app/detalhe_onibus.dart';
@@ -88,8 +87,7 @@ class _HomepageState extends State<Homepage> {
                               ],
                             ),
                             title: Text(
-                              utf8.decode(
-                                  listOnibus!.nomeInstituicao.codeUnits),
+                              listOnibus!.nomeInstituicao,
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                               maxLines: 2,

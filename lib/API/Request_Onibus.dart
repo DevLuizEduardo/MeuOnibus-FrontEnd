@@ -23,7 +23,8 @@ class Request_Onibus {
       final response = await http.get(url, headers: headers);
 
       if (response.statusCode == 200) {
-        instituicao = Instituicao.fromJson(convert.jsonDecode(response.body));
+        instituicao = Instituicao.fromJson(
+            convert.jsonDecode(convert.utf8.decode(response.bodyBytes)));
 
         return instituicao;
       } else {

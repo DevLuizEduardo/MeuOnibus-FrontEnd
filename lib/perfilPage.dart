@@ -14,14 +14,7 @@ class _PerfilPageState extends State<PerfilPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: const Text(
-              "MENU",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            centerTitle: true // Centraliza o título
-
-            ),
+        appBar: AppBar(),
         body: Column(children: [
           Container(
             child: TextButton(

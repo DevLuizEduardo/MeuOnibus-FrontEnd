@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meu_onibus_app/API/Request_Parada.dart';
@@ -60,7 +59,7 @@ class _Detalhe_ParadaState extends State<Detalhe_Parada> {
       return;
     }
 
-    text = utf8.decode(descricao!.descricao.codeUnits);
+    text = descricao!.descricao;
     int limiteCaracteres = 180;
 
     // Número de caracteres antes do "..."
@@ -116,7 +115,7 @@ class _Detalhe_ParadaState extends State<Detalhe_Parada> {
               width: double.infinity,
               decoration: BoxDecoration(color: Color(0xFFFF9800)),
               child: Text(
-                utf8.decode(widget.endereco.codeUnits),
+                widget.endereco,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
