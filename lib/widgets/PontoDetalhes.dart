@@ -33,6 +33,10 @@ class PontoDetalhes extends StatelessWidget {
           ElevatedButton.icon(
             onPressed: () async {
               final local = context.read<GeolocationProvider>();
+              if (local.polylines.isNotEmpty) {
+                local.polylines.clear();
+              }
+
               await local.tracarRota(ponto.place_id);
               local.localId = ponto.place_id; // Usa "driving" como exemplo
               Navigator.pop(context);
