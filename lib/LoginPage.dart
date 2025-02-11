@@ -129,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: CupertinoButton(
                           color: Colors.greenAccent,
                           child: const Text(
-                            "Login",
+                            "Login ",
                             style: TextStyle(
                                 color: Colors.black54,
                                 fontSize: 14,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:meu_onibus_app/mapsPage.dart';
 import 'package:meu_onibus_app/menu_down.dart';
 import 'package:meu_onibus_app/startPage.dart';
 
 class MyApp extends StatelessWidget {
   static const START = '/';
   static const HOME = 'menu_dow';
+  static const MAPS = 'mapsPage';
 
   // This widget is the root of your application.
   @override
@@ -36,6 +38,7 @@ class MyApp extends StatelessWidget {
         routes: {
           START: (context) => Startpage(),
           HOME: (context) => menu_down(),
+          MAPS: (context) => Mapspage()
         });
   }
 }

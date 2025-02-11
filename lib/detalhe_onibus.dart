@@ -79,9 +79,7 @@ class _DetalheOnibusState extends State<DetalheOnibus> {
               detalhe != null ? detalhe!.motoristaNome : 'Carregando...',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(
-              height: 30,
-            ),
+            SizedBox(height: 30),
             Container(
               width: 300,
               height: 100,
@@ -96,30 +94,24 @@ class _DetalheOnibusState extends State<DetalheOnibus> {
                     "Horário do ônibus",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
+                  SizedBox(height: 5),
                   Text(
                     (detalhe?.horarios != null && detalhe!.horarios.isNotEmpty)
                         ? '${detalhe!.horarios[0].horaInicio} - ${detalhe!.horarios[0].horaFim}'
                         : " ",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
+                  SizedBox(height: 5),
                   Text(
-                    (detalhe?.horarios != null && detalhe!.horarios.isNotEmpty)
+                    (detalhe?.horarios != null && detalhe!.horarios.length > 1)
                         ? '${detalhe!.horarios[1].horaInicio} - ${detalhe!.horarios[1].horaFim}'
-                        : "  ",
+                        : "",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   )
                 ],
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Container(
               width: double.infinity,
               decoration: BoxDecoration(color: Color(0xFFFF9800)),
@@ -139,42 +131,43 @@ class _DetalheOnibusState extends State<DetalheOnibus> {
               ]),
             ),
             Expanded(
-                child: detalhe == null
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : ListView.separated(
-                        itemBuilder: (context, index) {
-                          return Container(
-                              color: Colors.white,
-                              child: ListTile(
-                                  contentPadding:
-                                      EdgeInsets.only(left: 10, right: 20),
-                                  leading: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Image.asset(
-                                        "assets/icons/icon_parada.png",
-                                        width: 30,
-                                      ),
-                                      SizedBox(width: 8),
-                                    ],
-                                  ),
-                                  title: Text(
-                                    detalhe!.paradas[index].endereco,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  trailing: Icon(Icons.arrow_forward_ios),
-                                  onTap: () => mostrarParada(
-                                      detalhe!.paradas[index].id,
-                                      detalhe!.paradas[index].endereco)));
-                        },
-                        separatorBuilder: (_, ____) => Divider(),
-                        itemCount: detalhe!.paradas.length)),
+              child: detalhe == null
+                  ? Center(child: CircularProgressIndicator())
+                  : ListView.separated(
+                      itemBuilder: (context, index) {
+                        return Container(
+                          color: Colors.white,
+                          child: ListTile(
+                            contentPadding:
+                                EdgeInsets.only(left: 10, right: 20),
+                            leading: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset(
+                                  "assets/icons/icon_parada.png",
+                                  width: 30,
+                                ),
+                                SizedBox(width: 8),
+                              ],
+                            ),
+                            title: Text(
+                              detalhe!.paradas[index].endereco,
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            trailing: Icon(Icons.arrow_forward_ios),
+                            onTap: () => mostrarParada(
+                                detalhe!.paradas[index].id,
+                                detalhe!.paradas[index].endereco),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (_, ____) => Divider(),
+                      itemCount: detalhe?.paradas.length ?? 0,
+                    ),
+            ),
           ],
         ),
       ),

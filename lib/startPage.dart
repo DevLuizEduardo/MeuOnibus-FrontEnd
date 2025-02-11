@@ -60,14 +60,11 @@ class _StartpageState extends State<Startpage> {
           ),
           Container(
             width: 200,
-            child: Hero(
-              tag: 'logo',
-              child: AnimatedOpacity(
-                opacity: _opacity,
-                duration: Duration(seconds: 2), // Duração da animação
-                curve: Curves.easeInOut, // Curva de animação
-                child: Image.asset('assets/images/bus.png'), // Sua imagem
-              ),
+            child: AnimatedOpacity(
+              opacity: _opacity,
+              duration: Duration(seconds: 2), // Duração da animação
+              curve: Curves.easeInOut, // Curva de animação
+              child: Image.asset('assets/images/bus.png'), // Sua imagem
             ),
           ),
         ]),

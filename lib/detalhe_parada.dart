@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meu_onibus_app/API/Request_Parada.dart';
+import 'package:meu_onibus_app/GeolocationProvider.dart';
 import 'package:meu_onibus_app/Models/DescricaoParada.dart';
+import 'package:meu_onibus_app/mapsPage.dart';
 import 'package:meu_onibus_app/widgets/CaixaPop-Up.dart';
-
 import 'package:meu_onibus_app/widgets/carrossel_widget.dart';
+import 'package:provider/provider.dart';
 
 class Detalhe_Parada extends StatefulWidget {
   final int id;
   final String endereco;
-  //final String descricao =
-  //  "Este ponto de ônibus fica ao lado do supermercado central. Ele é um dos mais movimentados da cidade e conta com diversos assentos disponíveis para os passageiros que aguardam o transporte.";
   const Detalhe_Parada({super.key, required this.id, required this.endereco});
 
   @override
@@ -49,7 +49,7 @@ class _Detalhe_ParadaState extends State<Detalhe_Parada> {
   }
 
   void _processarImagens() {
-    if (descricao?.fotos != null || descricao!.fotos.isNotEmpty) {
+    if (descricao?.fotos != null && descricao!.fotos.isNotEmpty) {
       images.addAll(descricao!.fotos.map((x) => x.foto).toList());
     }
   }
@@ -200,9 +200,18 @@ class _Detalhe_ParadaState extends State<Detalhe_Parada> {
                   ),
                 ],
               ),
-              onPressed: () => {},
+              onPressed: () async => {
+                await context
+                    .read<GeolocationProvider>()
+                    .localizarNoMaps(descricao!.placeId),
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Mapspage(),
+                    ))
+              },
             ),
-          ),
+          )
         ]));
   }
 }

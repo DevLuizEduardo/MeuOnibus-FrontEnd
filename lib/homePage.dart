@@ -98,7 +98,9 @@ class _HomepageState extends State<Homepage> {
                                 mostrarDetalhes(listOnibus!.onibus[index].id),
                           ));
                     },
-                    separatorBuilder: (_, ____) => Divider(),
+                    separatorBuilder: (_, __) => Divider(
+                          height: 3,
+                        ),
                     itemCount: listOnibus!.onibus.length))
       ]),
     );

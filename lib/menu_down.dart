@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meu_onibus_app/AvisoProvider.dart';
-import 'package:meu_onibus_app/detalhe_onibus.dart';
 import 'package:meu_onibus_app/homePage.dart';
 import 'package:meu_onibus_app/mapsPage.dart';
 import 'package:meu_onibus_app/avisosPage.dart';
@@ -21,8 +20,7 @@ class _menu_downState extends State<menu_down> {
     Homepage(),
     Mapspage(),
     AvisosPage(),
-    PerfilPage(),
-    DetalheOnibus(id: 0),
+    PerfilPage()
   ];
 
   void _onItemTapped(int index) {

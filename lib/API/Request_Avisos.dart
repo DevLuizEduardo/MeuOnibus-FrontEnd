@@ -94,7 +94,6 @@ class Request_Avisos {
       final response =
           await http.post(url, headers: headers, body: id.toString());
 
-      print(response.statusCode);
       if (response.statusCode == 200) {
         return true;
       } else {
