@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meu_onibus_app/GeolocationProvider.dart';
+import 'package:meu_onibus_app/ConfigMapsProvider.dart';
 import 'package:meu_onibus_app/Models/Ponto.dart';
 import 'package:meu_onibus_app/widgets/carrossel_widget.dart';
 import 'package:provider/provider.dart';
@@ -32,13 +32,13 @@ class PontoDetalhes extends StatelessWidget {
           SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: () async {
-              final local = context.read<GeolocationProvider>();
+              final local = context.read<ConfigMapsProvider>();
               if (local.polylines.isNotEmpty) {
                 local.polylines.clear();
               }
-
+              local.localId = ponto.place_id;
               await local.tracarRota(ponto.place_id);
-              local.localId = ponto.place_id; // Usa "driving" como exemplo
+              // Usa "driving" como exemplo
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(

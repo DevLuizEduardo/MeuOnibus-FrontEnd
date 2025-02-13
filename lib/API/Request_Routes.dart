@@ -79,21 +79,20 @@ class Request_Routes {
 
   // Método para formatar duração (ex: "1h 23min")
   String _formatarDuracao(String duration) {
-    final regex = RegExp(r'(\d+)H|(\d+)M|(\d+)S');
-    final matches = regex.allMatches(duration);
+    int totalSegundos = int.tryParse(duration.replaceAll("s", "")) ?? 0;
 
-    int horas = 0, minutos = 0, segundos = 0;
-    for (var match in matches) {
-      if (match.group(1) != null) horas = int.parse(match.group(1)!);
-      if (match.group(2) != null) minutos = int.parse(match.group(2)!);
-      if (match.group(3) != null) segundos = int.parse(match.group(3)!);
+    int horas = totalSegundos ~/ 3600;
+    int minutos = (totalSegundos % 3600) ~/ 60;
+    int segundos = totalSegundos % 60;
+
+    print(duration);
+
+    if (horas > 0) {
+      return "${horas}h ${minutos}min";
+    } else if (minutos > 0) {
+      return "${minutos}min";
+    } else {
+      return "${segundos}s";
     }
-
-    String result = "";
-    if (horas > 0) result += "${horas}h ";
-    if (minutos > 0) result += "${minutos}min ";
-    if (segundos > 0 && result.isEmpty) result += "${segundos}s";
-
-    return result.trim();
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:meu_onibus_app/LoginPage.dart';
 import 'package:meu_onibus_app/Models/DescricaoParada.dart';
+import 'package:meu_onibus_app/env.dart';
 
 class Request_Parada {
   final storage = FlutterSecureStorage();
@@ -15,7 +16,7 @@ class Request_Parada {
     DescricaoParada? descricao;
 
     if (token != null && !JwtDecoder.isExpired(token)) {
-      var url = Uri.http('192.168.3.2:8080', '/onibus/parada/$id');
+      var url = Uri.http('${Env.localHost}', '/onibus/parada/$id');
       final headers = {
         "Content-type": "application/json",
         "Authorization": 'Bearer $token'

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meu_onibus_app/API/Request_Parada.dart';
-import 'package:meu_onibus_app/GeolocationProvider.dart';
+import 'package:meu_onibus_app/ConfigMapsProvider.dart';
 import 'package:meu_onibus_app/Models/DescricaoParada.dart';
 import 'package:meu_onibus_app/mapsPage.dart';
 import 'package:meu_onibus_app/widgets/CaixaPop-Up.dart';
@@ -201,9 +201,7 @@ class _Detalhe_ParadaState extends State<Detalhe_Parada> {
                 ],
               ),
               onPressed: () async => {
-                await context
-                    .read<GeolocationProvider>()
-                    .localizarNoMaps(descricao!.placeId),
+                context.read<ConfigMapsProvider>().localId = descricao!.placeId,
                 Navigator.push(
                     context,
                     MaterialPageRoute(

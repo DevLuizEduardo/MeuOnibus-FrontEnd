@@ -5,6 +5,7 @@ import 'package:meu_onibus_app/LoginPage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:meu_onibus_app/Models/Aviso.dart';
+import 'package:meu_onibus_app/env.dart';
 
 class Request_Avisos {
   final storage = FlutterSecureStorage();
@@ -14,7 +15,7 @@ class Request_Avisos {
     List<Aviso> aviso;
 
     if (token != null && !JwtDecoder.isExpired(token)) {
-      var url = Uri.http('192.168.3.2:8080', '/aviso/listar_avisos');
+      var url = Uri.http('${Env.localHost}', '/aviso/listar_avisos');
       final headers = {
         "Content-type": "application/json",
         "Authorization": 'Bearer $token'
@@ -48,7 +49,7 @@ class Request_Avisos {
     List<Aviso> aviso;
 
     if (token != null && !JwtDecoder.isExpired(token)) {
-      var url = Uri.http('192.168.3.2:8080', '/aviso/listar_avisoslidos');
+      var url = Uri.http('${Env.localHost}', '/aviso/listar_avisoslidos');
       final headers = {
         "Content-type": "application/json",
         "Authorization": 'Bearer $token'
@@ -85,7 +86,7 @@ class Request_Avisos {
     String? token = await storage.read(key: 'acess_token');
 
     if (token != null && !JwtDecoder.isExpired(token)) {
-      var url = Uri.http('192.168.3.2:8080', '/aviso/registrar_avisos');
+      var url = Uri.http('${Env.localHost}', '/aviso/registrar_avisos');
       final headers = {
         "Content-type": "application/json",
         "Authorization": 'Bearer $token'
@@ -113,7 +114,7 @@ class Request_Avisos {
     String? token = await storage.read(key: 'acess_token');
 
     if (token != null && !JwtDecoder.isExpired(token)) {
-      var url = Uri.http('192.168.3.2:8080', '/aviso/excluir_aviso');
+      var url = Uri.http('${Env.localHost}', '/aviso/excluir_aviso');
       final headers = {
         "Content-type": "application/json",
         "Authorization": 'Bearer $token'

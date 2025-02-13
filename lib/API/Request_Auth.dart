@@ -5,12 +5,13 @@ import 'package:meu_onibus_app/Models/Usuario.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
+import 'package:meu_onibus_app/env.dart';
 
 class Request_Auth {
   final storage = FlutterSecureStorage();
 
   Future<bool> login(Usuario dados, BuildContext context) async {
-    var url = Uri.http('192.168.3.2:8080', '/auth/login');
+    var url = Uri.http('${Env.localHost}', '/auth/login');
     final headers = {"Content-type": "application/json"};
     String json = convert.jsonEncode(toJson(dados));
 

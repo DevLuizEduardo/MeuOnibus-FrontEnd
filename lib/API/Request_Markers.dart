@@ -3,6 +3,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
+import 'package:meu_onibus_app/env.dart';
 
 class Request_Markers {
   final storage = FlutterSecureStorage();
@@ -14,7 +15,7 @@ class Request_Markers {
       return []; // Retorna lista vazia se o token for inválido
     }
 
-    var url = Uri.http('192.168.3.2:8080', '/maps/listar-markers');
+    var url = Uri.http('${Env.localHost}', '/maps/listar-markers');
     final headers = {
       "Content-type": "application/json",
       "Authorization": 'Bearer $token'

@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:meu_onibus_app/LoginPage.dart';
 import 'package:meu_onibus_app/Models/Instituicao.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:meu_onibus_app/env.dart';
 
 class Request_Onibus {
   final storage = FlutterSecureStorage();
@@ -14,7 +15,7 @@ class Request_Onibus {
     Instituicao? instituicao;
 
     if (token != null && !JwtDecoder.isExpired(token)) {
-      var url = Uri.http('192.168.3.2:8080', '/onibus/listar-onibus');
+      var url = Uri.http('${Env.localHost}', '/onibus/listar-onibus');
       final headers = {
         "Content-type": "application/json",
         "Authorization": 'Bearer $token'

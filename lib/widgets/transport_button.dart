@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meu_onibus_app/GeolocationProvider.dart';
+import 'package:meu_onibus_app/ConfigMapsProvider.dart';
 import 'package:provider/provider.dart';
 
 class TransportButton extends StatefulWidget {
@@ -18,7 +18,7 @@ class _TransportButtonState extends State<TransportButton> {
 
   @override
   Widget build(BuildContext context) {
-    final status = context.watch<GeolocationProvider>();
+    final status = context.watch<ConfigMapsProvider>();
     return Positioned(
       bottom: 100, // Mantém o botão fixo no canto inferior direito
       right: 20,
@@ -92,11 +92,11 @@ class _TransportButtonState extends State<TransportButton> {
         mini: true,
         shape: CircleBorder(),
         backgroundColor:
-            context.read<GeolocationProvider>().modoTransporte == mode
+            context.read<ConfigMapsProvider>().modoTransporte == mode
                 ? Colors.blue
                 : Colors.white,
         onPressed: () => {
-          context.read<GeolocationProvider>().mudarModoTransporte(mode),
+          context.read<ConfigMapsProvider>().mudarModoTransporte(mode),
           isExpanded = false
         },
         child: Icon(icon, color: Colors.black),

@@ -9,7 +9,7 @@ import 'package:meu_onibus_app/Models/Ponto.dart';
 import 'package:meu_onibus_app/mapsPage.dart';
 import 'package:meu_onibus_app/widgets/PontoDetalhes.dart';
 
-class GeolocationProvider extends ChangeNotifier {
+class ConfigMapsProvider extends ChangeNotifier {
   double lat = 0.0;
   double long = 0.0;
   String erro = "";
@@ -110,10 +110,9 @@ class GeolocationProvider extends ChangeNotifier {
 
   void mudarModoTransporte(String novoModo) {
     modoTransporte = novoModo;
+
     polylines.clear();
-    if (localId.isNotEmpty) {
-      tracarRota(localId);
-    }
+
     notifyListeners();
   }
 
@@ -219,7 +218,7 @@ class GeolocationProvider extends ChangeNotifier {
     super.dispose();
   }
 
-  Future<void> localizarNoMaps(String placeId) async {
-    tracarRota(placeId);
-  }
+  //Future<void> localizarNoMaps(String placeId) async {
+  //  tracarRota(placeId);
+  //}
 }
