@@ -40,10 +40,10 @@ Este é um aplicativo para transporte público estudantil.
 
 ## 📱 Capturas de Tela  
 ### Tela Inicial  
-![Tela Inicial](assets/images/Home.png)  
+<img src="assets/images/Home.png" alt="Tela Inicial" width="200">
 
 ### Tela de Rotas  
-![Tela de Rotas](assets/images/Maps.png)
+<img src="assets/images/Maps.png" alt="Tela Inicial" width="200">
 
 ## 🚀 **Como Executar o Projeto**
 
