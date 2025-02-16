@@ -114,7 +114,7 @@ class Request_Avisos {
     String? token = await storage.read(key: 'acess_token');
 
     if (token != null && !JwtDecoder.isExpired(token)) {
-      var url = Uri.http('${Env.localHost}', '/aviso/excluir_aviso');
+      var url = await Uri.http('${Env.localHost}', '/aviso/excluir_aviso');
       final headers = {
         "Content-type": "application/json",
         "Authorization": 'Bearer $token'

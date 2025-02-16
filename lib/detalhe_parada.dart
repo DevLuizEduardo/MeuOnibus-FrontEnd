@@ -202,6 +202,7 @@ class _Detalhe_ParadaState extends State<Detalhe_Parada> {
               ),
               onPressed: () async => {
                 context.read<ConfigMapsProvider>().localId = descricao!.placeId,
+                context.read<ConfigMapsProvider>().polylines.clear(),
                 Navigator.push(
                     context,
                     MaterialPageRoute(

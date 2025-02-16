@@ -26,4 +26,17 @@ class AvisoProvider with ChangeNotifier {
       print("Erro ao carregar avisos: $e");
     }
   }
+
+  Future<bool> excluirAviso(int idAviso, BuildContext context) async {
+    try {
+      await Request_Avisos().excluirAviso(idAviso, context);
+      _avisos.clear;
+
+      notifyListeners();
+
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

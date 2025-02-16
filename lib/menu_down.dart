@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meu_onibus_app/AvisoProvider.dart';
+import 'package:meu_onibus_app/ConfigMapsProvider.dart';
 import 'package:meu_onibus_app/homePage.dart';
 import 'package:meu_onibus_app/mapsPage.dart';
 import 'package:meu_onibus_app/avisosPage.dart';
@@ -27,6 +28,13 @@ class _menu_downState extends State<menu_down> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<ConfigMapsProvider>().initializeMap();
   }
 
   @override

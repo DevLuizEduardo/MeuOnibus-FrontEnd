@@ -40,7 +40,6 @@ class Request_Routes {
           headers: headers, body: jsonEncode(body));
 
       if (response.statusCode == 200) {
-        print(response.body);
         final data = jsonDecode(response.body);
 
         if (data["routes"] != null && data["routes"].isNotEmpty) {

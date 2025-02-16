@@ -12,16 +12,18 @@ class AvisosPage extends StatefulWidget {
 class _AvisosPageState extends State<AvisosPage> {
   // Função para atualizar a lista de avisos
   Future<void> _atualizarLista() async {
-    await Provider.of<AvisoProvider>(context, listen: false)
-        .carregarAvisos(context);
+    if (mounted) {
+      await Provider.of<AvisoProvider>(context, listen: false)
+          .carregarAvisos(context);
+    }
   }
 
-  Future<void> _atualizarListaSeNecessario(
-      BuildContext context, Aviso aviso) async {
-    await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => DetalheAviso(aviso: aviso)));
-
-    Provider.of<AvisoProvider>(context, listen: false).carregarAvisos(context);
+  Future<void> _abrirDetalheAviso(BuildContext context, Aviso aviso) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DetalheAviso(aviso: aviso)),
+    );
+    _atualizarLista();
   }
 
   @override
@@ -29,11 +31,10 @@ class _AvisosPageState extends State<AvisosPage> {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          mainAxisSize:
-              MainAxisSize.min, // Para evitar ocupar todo o espaço disponível
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text('Avisos'),
-            SizedBox(width: 8), // Espaço entre o título e o ícone
+            SizedBox(width: 8),
             ImageIcon(
               AssetImage('assets/icons/icon_notification.png'),
               size: 24,
@@ -50,7 +51,7 @@ class _AvisosPageState extends State<AvisosPage> {
           }
 
           return RefreshIndicator(
-            onRefresh: _atualizarLista, // Atualiza a lista ao puxar para baixo
+            onRefresh: _atualizarLista,
             child: ListView.builder(
               itemCount: avisos.length,
               itemBuilder: (context, index) {
@@ -59,21 +60,11 @@ class _AvisosPageState extends State<AvisosPage> {
                 return Card(
                   margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: ListTile(
-                    leading: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        aviso.lido == false
-                            ? Image.asset(
-                                "assets/icons/icon_mensage.png",
-                                width: 20,
-                              )
-                            : Image.asset(
-                                "assets/icons/icon_mensage_lido.png",
-                                width: 20,
-                              ),
-
-                        //SizedBox(width: 8),
-                      ],
+                    leading: Image.asset(
+                      aviso.lido
+                          ? "assets/icons/icon_mensage_lido.png"
+                          : "assets/icons/icon_mensage.png",
+                      width: 20,
                     ),
                     title: Text(aviso.titulo),
                     subtitle: Text(
@@ -82,7 +73,7 @@ class _AvisosPageState extends State<AvisosPage> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     trailing: Icon(Icons.arrow_forward_ios),
-                    onTap: () => _atualizarListaSeNecessario(context, aviso),
+                    onTap: () => _abrirDetalheAviso(context, aviso),
                   ),
                 );
               },

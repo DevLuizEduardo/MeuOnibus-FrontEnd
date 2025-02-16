@@ -20,18 +20,18 @@ class ConfigMapsProvider extends ChangeNotifier {
   String duracao = "";
   String modoTransporte = "DRIVE";
   StreamSubscription<Position>? _positionStream;
-  late GoogleMapController _mapsController;
+  GoogleMapController? _mapsController;
+  bool isMapReady = false;
 
-  get mapsController => _mapsController;
-
-  // Variáveis para a rota e para controlar o movimento do usuário
-  List<LatLng> _rotaPoints = [];
+  Future<void> initializeMap() async {
+    await _posicaoAtual();
+    await loadPontos();
+  }
 
   onMapCreated(GoogleMapController gmc) async {
     _mapsController = gmc;
-
-    _posicaoAtual();
-    loadPontos();
+    isMapReady = true;
+    notifyListeners();
   }
 
   loadPontos() async {
@@ -39,21 +39,11 @@ class ConfigMapsProvider extends ChangeNotifier {
       final List<Ponto> pontos = await Request_Markers().listarPontos();
       final BitmapDescriptor customIcon = await _getCustomMarker();
 
-      pontos.forEach((local) {
-        print("Endereço : " +
-            local.parada.endereco +
-            " LAT : " +
-            local.latitude.toString() +
-            " LONG : " +
-            local.longitude.toString());
-      });
-
       Set<Marker> novosMarkers = pontos.map((ponto) {
         return Marker(
           markerId: MarkerId(ponto.parada.id.toString()),
           position: LatLng(ponto.latitude, ponto.longitude),
           icon: customIcon,
-          infoWindow: InfoWindow(snippet: " "),
           onTap: () {
             showModalBottomSheet(
                 context: appKey.currentState!.context,
@@ -103,9 +93,11 @@ class ConfigMapsProvider extends ChangeNotifier {
   }
 
   void atualizarCamera() {
-    _mapsController.animateCamera(
-      CameraUpdate.newLatLng(LatLng(lat, long)), // Atualiza a câmera no mapa
-    );
+    if (_mapsController != null) {
+      _mapsController!.animateCamera(
+        CameraUpdate.newLatLng(LatLng(lat, long)), // Atualiza a câmera no mapa
+      );
+    }
   }
 
   void mudarModoTransporte(String novoModo) {
@@ -116,14 +108,11 @@ class ConfigMapsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void clearRoute() {
+  Future<void> clearRoute() async {
     polylines.clear();
     localId = ""; // Remove as rotas do mapa
     notifyListeners();
-    _mapsController.animateCamera(
-      CameraUpdate.newLatLng(LatLng(lat, long)), // Atualiza a câmera no mapa
-    );
-    // Atualiza o mapa
+    atualizarCamera(); // Atualiza a câmera no mapa
   }
 
   Future<void> tracarRota(String placeid) async {
@@ -141,20 +130,14 @@ class ConfigMapsProvider extends ChangeNotifier {
         points: pontosRota,
       );
 
-      // Atualiza o conjunto de polylines com a rota
       polylines.add(rota);
 
-      // Armazena os pontos da rota
-      _rotaPoints = pontosRota;
-
-      // Atualiza a distância e duração da rota
       distancia = rotaData["distancia"];
       duracao = rotaData["duracao"];
       // vai armazenar a rota em memoria
       localId = placeid;
 
-      // Ajusta a câmera para cobrir toda a rota
-      _adjustCameraToRoute(_rotaPoints);
+      _adjustCameraToRoute(pontosRota);
 
       notifyListeners();
     } catch (e) {
@@ -165,9 +148,9 @@ class ConfigMapsProvider extends ChangeNotifier {
 
   // Método para ajustar a câmera com base na rota
   void _adjustCameraToRoute(List<LatLng> pontosRota) {
-    if (pontosRota.isNotEmpty) {
+    if (pontosRota.isNotEmpty && _mapsController != null) {
       LatLngBounds bounds = _getLatLngBounds(pontosRota);
-      _mapsController.animateCamera(
+      _mapsController!.animateCamera(
         CameraUpdate.newLatLngBounds(bounds, 50), // 50 é o padding
       );
     }
@@ -217,8 +200,4 @@ class ConfigMapsProvider extends ChangeNotifier {
 
     super.dispose();
   }
-
-  //Future<void> localizarNoMaps(String placeId) async {
-  //  tracarRota(placeId);
-  //}
 }

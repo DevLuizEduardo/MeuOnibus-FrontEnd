@@ -30,7 +30,6 @@ class _MapspageState extends State<Mapspage> {
 
     if (geo.localId.isNotEmpty && geo.polylines.isEmpty) {
       geo.tracarRota(geo.localId);
-      print("Está chamando a rota");
     }
   }
 
