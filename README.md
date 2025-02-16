@@ -38,12 +38,19 @@ A API foi construída com **Java e Spring Boot**, garantindo segurança e efici�
 # Meu Aplicativo 🚍  
 Este é um aplicativo para transporte público estudantil.  
 
-## 📱 Capturas de Tela  
-### Tela Inicial  
-<img src="assets/images/Home.png" alt="Tela Inicial" width="200">
-
-### Tela de Rotas  
-<img src="assets/images/Maps.png" alt="Tela Inicial" width="200">
+## 📱 Capturas de Tela
+<p align="center">
+  <br>
+  <img src="assets/images/Start_page.png" alt="Tela Inicial" width="200"> &nbsp;&nbsp;
+  <img src="assets/images/Home.png" alt="Tela Inicial" width="200"> &nbsp;&nbsp;
+  <img src="assets/images/Maps.png" alt="Tela de Rotas" width="200">
+</p>
+<p align="center">
+  <br>
+  <img src="assets/images/Login.png" alt="Tela Inicial" width="200"> &nbsp;&nbsp;
+  <img src="assets/images/Onibus Detalhe.png" alt="Tela Inicial" width="200"> &nbsp;&nbsp;
+  <img src="assets/images/Parada Detalhe.png" alt="Tela de Rotas" width="200">
+</p>
 
 ## 🚀 **Como Executar o Projeto**
 
