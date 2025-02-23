@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:meu_onibus_app/ConfigMapsProvider.dart';
-import 'package:meu_onibus_app/MyApp.dart';
-import 'package:meu_onibus_app/AvisoProvider.dart';
+import 'package:meu_onibus_app/src/Provider/config_maps_provider.dart';
+import 'package:meu_onibus_app/src/Pages/myApp.dart';
+import 'package:meu_onibus_app/src/Provider/aviso_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => AvisoProvider(context)),
-      ChangeNotifierProvider(create: (context) => ConfigMapsProvider())
+      ChangeNotifierProvider(create: (context) => aviso_provider(context)),
+      ChangeNotifierProvider(create: (context) => config_maps_provider())
     ],
-    child: MyApp(),
+    child: myApp(),
   ));
 }
